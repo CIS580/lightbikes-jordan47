@@ -77,10 +77,30 @@ function loop()
 	if(input.left) x -= 1;
 	if(input.right) x += 1;
 	
-	ctx.fillStyle = "red";
-	ctx.fillRect(x, y, 5, 5);
+	ctx.clearRect(0,0, canvas.width, canvas.height);
 	
-	setTimeout(loop, speed)
+	for(i = 0; i<1000; i++)
+	{
+		ctx.fillStyle = "blue";
+		ctx.fillRect(
+		(i * 20)%100,
+		(i * 20)%100,
+		10,
+		10)
+	}
+	
+	ctx.fillStyle = "red";
+	ctx.fillRect(x, y, 5, 5);	
+
+	requestAnimationFrame(loop);
+	//setTimeout(loop, speed)
 }
-loop();
+//loop();
+
+//var intervalID = setInterval(loop, speed);
+
+requestAnimationFrame(loop);
+
+
+
 
