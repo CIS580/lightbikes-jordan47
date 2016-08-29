@@ -1,9 +1,17 @@
 var canvas = document.getElementById('screen');
 var ctx = canvas.getContext('2d');
+var backCanvas = document.create('canvas');
+backCanvas = new Canvas(canvas.width, canvas.height);
+backCanvas.width = canvas.width;
+backCanvas.height = canvas.height;
+var backCtx = backCanvas.getContext('2d');
+
 var speed = 1/16000
 
 var x = 0;
 var y = 0;
+
+var image = new Image();
 
 var input = {
 	up: false,
@@ -77,20 +85,23 @@ function loop()
 	if(input.left) x -= 1;
 	if(input.right) x += 1;
 	
-	ctx.clearRect(0,0, canvas.width, canvas.height);
+	backCtx.clearRect(0,0, canvas.width, canvas.height);
 	
 	for(i = 0; i<1000; i++)
 	{
-		ctx.fillStyle = "blue";
-		ctx.fillRect(
+		backCtx.fillStyle = "blue";
+		backCtx.fillRect(
 		(i * 20)%100,
 		(i * 20)%100,
 		10,
 		10)
 	}
 	
-	ctx.fillStyle = "red";
-	ctx.fillRect(x, y, 5, 5);	
+	backCtx.fillStyle = "red";
+	backCtx.fillRect(x, y, 5, 5);	
+	
+	//swap buffers
+	ctx.drawImage(x, y, 5, 5);
 
 	requestAnimationFrame(loop);
 	//setTimeout(loop, speed)
